@@ -5,15 +5,11 @@ from bs4 import BeautifulSoup
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from dotenv import load_dotenv
 from pinecone import Pinecone, ServerlessSpec
-
-
 # Load environment variables
 load_dotenv()
-
 # Initialize APIs
 openai.api_key = os.getenv("OPENAI_API_KEY")
 pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
-
 # Configuration
 INDEX_NAME = "crop-rag-openai"
 CHUNK_SIZE = 1000  # Optimal for OpenAI embeddings
@@ -23,65 +19,64 @@ GPT_MODEL = "gpt-3.5-turbo"
 import tensorflow as tf
 import numpy as np
 from PIL import Image
-
-# Load your trained model
-  # or .keras
-
 # Class names (replace with your actual class labels)
 CLASS_NAMES = [
+ 'Apple___Apple_scab',
+ 'Apple___Black_rot',
+ 'Apple___Cedar_apple_rust',
+ 'Apple___healthy',
+ 'Blueberry___healthy',
+ 'Cherry_(including_sour)___Powdery_mildew',
+ 'Cherry_(including_sour)___healthy',
+ 'Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot',
+ 'Corn_(maize)___Common_rust_',
+ 'Corn_(maize)___Northern_Leaf_Blight',
+ 'Corn_(maize)___healthy',
+ 'Grape___Black_rot',
+ 'Grape___Esca_(Black_Measles)',
+ 'Grape___Leaf_blight_(Isariopsis_Leaf_Spot)',
+ 'Grape___healthy',
+ 'Orange___Haunglongbing_(Citrus_greening)',
+ 'Peach___Bacterial_spot',
+ 'Peach___healthy',
+ 'Pepper,_bell___Bacterial_spot',
+ 'Pepper,_bell___healthy',
+ 'Potato___Early_blight',
+ 'Potato___Late_blight',
+ 'Potato___healthy',
+ 'Raspberry___healthy',
+ 'Soybean___healthy',
+ 'Squash___Powdery_mildew',
+ 'Strawberry___Leaf_scorch',
+ 'Strawberry___healthy',
+ 'Tomato___Bacterial_spot',
+ 'Tomato___Early_blight',
+ 'Tomato___Late_blight',
+ 'Tomato___Leaf_Mold',
+ 'Tomato___Septoria_leaf_spot',
+ 'Tomato___Spider_mites Two-spotted_spider_mite',
+ 'Tomato___Target_Spot',
+ 'Tomato___Tomato_Yellow_Leaf_Curl_Virus',
+ 'Tomato___Tomato_mosaic_virus',
+ 'Tomato___healthy'
 #  'Apple___Apple_scab',
 #  'Apple___Black_rot',
-#  'Apple___Cedar_apple_rust',
-#  'Apple___healthy',
-#  'Blueberry___healthy',
-#  'Cherry_(including_sour)___Powdery_mildew',
-#  'Cherry_(including_sour)___healthy',
-#  'Corn_(maize)___Cercospora_leaf_spot Gray_leaf_spot',
-#  'Corn_(maize)___Common_rust_',
-#  'Corn_(maize)___Northern_Leaf_Blight',
-#  'Corn_(maize)___healthy',
-#  'Grape___Black_rot',
-#  'Grape___Esca_(Black_Measles)',
-#  'Grape___Leaf_blight_(Isariopsis_Leaf_Spot)',
-#  'Grape___healthy',
-#  'Orange___Haunglongbing_(Citrus_greening)',
-#  'Peach___Bacterial_spot',
-#  'Peach___healthy',
-#  'Pepper,_bell___Bacterial_spot',
-#  'Pepper,_bell___healthy',
-#  'Potato___Early_blight',
-#  'Potato___Late_blight',
-#  'Potato___healthy',
-#  'Raspberry___healthy',
-#  'Soybean___healthy',
-#  'Squash___Powdery_mildew',
-#  'Strawberry___Leaf_scorch',
-#  'Strawberry___healthy',
-#  'Tomato___Bacterial_spot',
-#  'Tomato___Early_blight',
-#  'Tomato___Late_blight',
-#  'Tomato___Leaf_Mold',
-#  'Tomato___Septoria_leaf_spot',
-#  'Tomato___Spider_mites Two-spotted_spider_mite',
-#  'Tomato___Target_Spot',
-#  'Tomato___Tomato_Yellow_Leaf_Curl_Virus',
-#  'Tomato___Tomato_mosaic_virus',
-#  'Tomato___healthy'
-    'Apple___Apple_scab',
-    'Peach___Bacterial_spot',
-    'Potato___Early_blight',
-    'Potato___Late_blight',
-    'Tomato___Early_blight',
-    'Tomato___Late_blight',
-    'Tomato___Tomato_Yellow_Leaf_Curl_Virus',  # Leaf Curl
-    'Tomato___Septoria_leaf_spot',
-    'Tomato___Tomato_mosaic_virus',  # Mosaic
-    'Corn_(maize)___Common_rust_'   
-    # ... add all your disease classes in order
+#  'Apple___Cedar_apple_rust'
+#                 # 'Apple___Apple_scab',
+#                 # 'Peach___Bacterial_spot',
+#                 # 'Potato___Early_blight',
+#                 # 'Potato___Late_blight',
+#                 # 'Tomato___Early_blight',
+#                 # 'Tomato___Late_blight',
+#                 # 'Tomato___Tomato_Yellow_Leaf_Curl_Virus',  # Leaf Curl
+#                 # 'Tomato___Septoria_leaf_spot',
+#                 # 'Tomato___Tomato_mosaic_virus',  # Mosaic
+#                 # 'Corn_(maize)___Common_rust_'   
+#                 # ... add all your disease classes in order
 ]
 
 def predict_disease(image_path):
-    model = tf.keras.models.load_model(r'C:\Users\K Ananthrao\Desktop\code\projects\hyperbot\trained_model.keras')
+    model = tf.keras.models.load_model(r'.\trained_model.keras')
     # Load and preprocess image
     img = Image.open(image_path).convert('RGB')
     
@@ -100,11 +95,12 @@ def predict_disease(image_path):
     return CLASS_NAMES[predicted_class], confidence
 import random
 
-def predict_disease2(image_path):
-    disease = random.choice(CLASS_NAMES)
-    confidence = round(random.uniform(0.85, 0.91), 2) 
+# def predict_disease2(image_path):
+#     disease = random.choice(CLASS_NAMES)
+#     # disease = 'Apple___Apple_scab'
+#     confidence = round(random.uniform(0.85, 0.91), 2) 
     
-    return disease, confidence
+#     return disease, confidence
 
 # Example usage  # Output: ('Tomato___Early_blight', 0.87)
     
@@ -374,7 +370,7 @@ def chat_endpoint():
             
             try:
                 # Get disease prediction
-                disease, confidence = predict_disease2(temp_path)
+                disease, confidence = predict_disease(temp_path)
                 final_query += f" | Detected Disease: {disease} (Confidence: {confidence*100:.1f}%)"
             except Exception as e:
                 return jsonify({
