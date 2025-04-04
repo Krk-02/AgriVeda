@@ -5,7 +5,7 @@ A comprehensive system for crop disease detection using deep learning and provid
 
 ## Features
 
-- 🌱 **Image-based Disease Detection**: 
+- 🌱 *Image-based Disease Detection**: 
   - 38+ plant disease classes supported
   - CNN model with 85-90% accuracy
   - Confidence scoring for predictions
@@ -45,7 +45,6 @@ A comprehensive system for crop disease detection using deep learning and provid
    ```bash
    git clone https://github.com/yourusername/crop-advisory-system.git
    cd crop-advisory-system
-   ```
 
 2. **Install Dependencies**:
    ```bash
