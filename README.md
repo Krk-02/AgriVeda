@@ -1,4 +1,3 @@
-```markdown
 # Crop Disease Detection & Advisory System
 
 A comprehensive system for crop disease detection using deep learning and providing AI-powered agricultural advice through a Retrieval-Augmented Generation (RAG) chatbot.
@@ -49,7 +48,6 @@ A comprehensive system for crop disease detection using deep learning and provid
 2. **Install Dependencies**:
    ```bash
    pip install -r requirements.txt
-   ```
 
 3. **Environment Setup**:
    - Create `.env` file:
