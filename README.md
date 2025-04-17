@@ -131,13 +131,4 @@ MIT License - See [LICENSE](LICENSE) for details
 ---
 
 **Disclaimer**: This system provides educational suggestions only. Always consult with agricultural professionals for critical decisions.
-```
 
-This README provides:
-- Clear setup and configuration instructions
-- API usage examples
-- System architecture overview
-- Contribution guidelines
-- Proper acknowledgments and licensing
-
-Adjust the repository URLs and license file as needed for your specific implementation.
