@@ -1,134 +1,111 @@
-# Crop Disease Detection & Advisory System
+# 🌿 ArgiVeda
 
-A comprehensive system for crop disease detection using deep learning and providing AI-powered agricultural advice through a Retrieval-Augmented Generation (RAG) chatbot.
-
-## Features
-
-- 🌱 **Image-based Disease Detection**: 
-  - 38+ plant disease classes supported
-  - CNN model with 85-90% accuracy
-  - Confidence scoring for predictions
-- 🤖 **AI-Powered Advisory**:
-  - RAG system with web-scraped knowledge
-  - Context-aware responses
-  - Multi-source agricultural information
-- 🔍 **Content Retrieval**:
-  - Web scraping of agricultural resources
-  - Pinecone vector database integration
-  - OpenAI embeddings for semantic search
-- 🚀 **API Endpoints**:
-  - Unified chat endpoint handling text + images
-  - JSON responses with structured data
-  - Error handling and validation
-
-## Technologies Used
-
-- **Machine Learning**: 
-  - TensorFlow/Keras (CNN model)
-  - NumPy/PIL (image processing)
-- **Natural Language Processing**:
-  - OpenAI Embeddings & GPT-3.5
-  - LangChain text processing
-- **Backend**:
-  - Flask REST API
-  - Pinecone vector database
-  - BeautifulSoup (web scraping)
-- **Environment**:
-  - Python 3.9+
-  - dotenv configuration
-  - Serverless Pinecone index
-
-## Installation
-
-1. **Clone Repository**:
-   ```bash
-   git clone https://github.com/yourusername/crop-advisory-system.git
-   cd crop-advisory-system
-
-2. **Install Dependencies**:
-   ```bash
-   pip install -r requirements.txt
-
-3. **Environment Setup**:
-   - Create `.env` file:
-     ```ini
-     OPENAI_API_KEY=your_openai_key
-     PINECONE_API_KEY=your_pinecone_key
-     ```
-   - Place trained model `trained_model.keras` in project root
-
-## Configuration
-
-1. **API Keys**:
-   - Get [OpenAI API Key](https://platform.openai.com/api-keys)
-   - Get [Pinecone API Key](https://app.pinecone.io/)
-
-2. **Pinecone Index**:
-   - Ensure index `crop-rag-openai` exists in `us-east-1` AWS region
-   - Dimension: 1536 (matches OpenAI embeddings)
-
-## Usage
-
-1. **Run Flask Application**:
-   ```bash
-   python app.py
-   ```
-
-2. **API Endpoints**:
-   - **POST** `/chat` - Main advisory endpoint
-     - Accepts both text and image inputs
-     - Form-data parameters:
-       - `text`: Query text (optional)
-       - `image`: Image file (optional)
-
-   **Example Request**:
-   ```bash
-   curl -X POST -F "text=How treat apple scab?" -F "image=@disease_leaf.jpg" http://localhost:5000/chat
-   ```
-
-3. **Example Response**:
-   ```json
-   {
-     "status": "success",
-     "message": "Apple scab can be treated with...",
-     "detected_disease": "Apple___Apple_scab"
-   }
-   ```
-
-## Data Processing
-
-To update agricultural knowledge base:
-```python
-# Add your information sources
-info_sources = [
-    "https://agritech.tnau.ac.in/crop_protection/crop_diseases_postharvest_apple_4.html",
-    # Add other agricultural URLs
-]
-
-# Run once to populate Pinecone
-process_and_store_data(info_sources)
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/improvement`)
-3. Commit changes (`git commit -m 'Add new feature'`)
-4. Push to branch (`git push origin feature/improvement`)
-5. Open Pull Request
-
-## License
-
-MIT License - See [LICENSE](LICENSE) for details
-
-## Acknowledgments
-
-- PlantVillage dataset for disease classification
-- OpenAI for NLP models
-- Pinecone for vector database infrastructure
-- TNAU Agritech Portal for agricultural content
+ArgiVeda is an intelligent, multilingual plant disease diagnosis and advisory system built for low-end Android devices. It combines high-accuracy Convolutional Neural Networks (CNNs) and Retrieval-Augmented Generation (RAG) to provide real-time, grounded agricultural advice tailored to Indian farmers.
 
 ---
 
-**Disclaimer**: This system provides educational suggestions only. Always consult with agricultural professionals for critical decisions.
+## 🚀 Features
 
+- 🌱 **Plant Disease Detection**
+  - Custom CNN model trained on the PlantVillage dataset.
+  - 97.7% test accuracy across 38 disease classes.
+  - Lightweight ONNX model (~29.9MB) supports offline classification.
+
+- 🧠 **Contextual AI Advisory**
+  - Retrieval-Augmented Generation (RAG) powered by OpenAI + Pinecone.
+  - Cites trusted agronomy KB sources: pest guides, treatment manuals, etc.
+  - Enables follow-up questions and local context understanding.
+
+- 📱 **Farmer-Friendly Interface**
+  - Supports 13 Indian languages and voice input.
+  - Intuitive mobile UI designed for low literacy and low-bandwidth usage.
+  - Designed for sub-5s latency on budget Android devices.
+
+- 🌐 **Offline Support**
+  - Offline image classification using ONNX.
+  - Caches top-K retrieval responses for offline Q&A.
+
+- 🧩 **Modular, Scalable Architecture**
+  - Microservices: `image-api`, `rag-service`, `chat-ui`.
+  - Easily extendable with new crops, diseases, or knowledge documents.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Backend**: Python, Flask, ONNX Runtime
+- **AI Models**: Custom CNN, OpenAI GPT
+- **RAG**: Pinecone Vector DB + OpenAI
+- **Frontend**: TypeScript / React Native
+- **Deployment**: Docker
+
+---
+
+## 🧪 Getting Started
+
+### 1. Clone the repo
+
+```bash
+git clone https://github.com/your-username/argiveda.git
+cd argiveda
+````
+
+### 2. Install Python dependencies
+
+### 3. Set environment variables
+
+See `.env.example` below or create your own `.env`.
+
+### 4. Run backend server
+
+```bash
+python app.py
+```
+### 5. Run index.html
+
+---
+
+## 🔐 Environment Variables
+
+Create a `.env` file in your root directory with the following contents:
+
+```env
+# OpenAI Configuration
+OPENAI_API_KEY=your_openai_api_key
+OPENAI_MODEL=gpt-4
+
+# Pinecone Configuration
+PINECONE_API_KEY=your_pinecone_api_key
+PINECONE_ENV=your_pinecone_env
+PINECONE_INDEX_NAME=your_index_name
+
+# App Settings
+PORT=8000
+DEBUG=True
+```
+
+---
+
+## 📸 Demo
+
+https://github.com/user-attachments/assets/ed18a0c1-f2c5-4dd8-80b7-2b0e9d8db4d0
+
+---
+
+## 📄 References
+
+* [PlantVillage Dataset](https://plantvillage.psu.edu/)
+* [Lewis et al. (2020) - RAG for Knowledge-Intensive NLP](https://arxiv.org/abs/2005.11401)
+* [Srivastava et al. (2014) - Dropout](https://jmlr.csail.mit.edu/papers/volume15/srivastava14a/srivastava14a.pdf)
+* [Ioffe & Szegedy (2015) - Batch Normalization](https://arxiv.org/abs/1502.03167)
+* [TNAU Agritech Portal](http://agritech.tnau.ac.in)
+
+---
+
+
+## 🪴 License
+
+This project is licensed under the **MIT License**.
+
+---
+```
