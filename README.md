@@ -1,6 +1,6 @@
 # 🌿 ArgiVeda
 
-ArgiVeda is an intelligent, multilingual plant disease diagnosis and advisory system built for low-end Android devices. It combines high-accuracy Convolutional Neural Networks (CNNs) and Retrieval-Augmented Generation (RAG) to provide real-time, grounded agricultural advice tailored to Indian farmers.
+ArgiVeda is an intelligent, multimodal plant disease diagnosis and advisory system built for low-end Android devices. It combines high-accuracy Convolutional Neural Networks (CNNs) and Retrieval-Augmented Generation (RAG) to provide real-time, grounded agricultural advice tailored to Indian farmers.
 
 ---
 
@@ -37,7 +37,6 @@ ArgiVeda is an intelligent, multilingual plant disease diagnosis and advisory sy
 - **AI Models**: Custom CNN, OpenAI GPT
 - **RAG**: Pinecone Vector DB + OpenAI
 - **Frontend**: TypeScript / React Native
-- **Deployment**: Docker
 
 ---
 
